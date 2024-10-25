@@ -6,3 +6,7 @@
 	path = vite-react-template-sky
 	url = https://github.com/skyclouds2001/vite-react-template-sky
 	branch = master
+[submodule "rollup-template-sky"]
+	path = rollup-template-sky
+	url = https://github.com/skyclouds2001/rollup-template-sky
+	branch = master
