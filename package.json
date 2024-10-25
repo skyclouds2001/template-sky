@@ -14,7 +14,8 @@
     "index.js",
     "dist/",
     "vite-react-template-sky/",
-    "vite-vue-template-sky/"
+    "vite-vue-template-sky/",
+    "rollup-template-sky/"
   ],
   "publishConfig": {
     "access": "public",
