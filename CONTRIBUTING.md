@@ -1,3 +1,3 @@
-# Contributing to vite-template-sky
+# Contributing to template-sky
 
-Thanks for your interest in contributing to vite-template-sky!
+Thanks for your interest in contributing to template-sky!

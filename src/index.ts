@@ -10,7 +10,7 @@ import { PackageManager, getPackageManager, isValidPackageManagerName } from './
 import { isValidTemplateName, templates, type Template } from './template'
 import { isValidPackageName, isValidProjectName } from './validate'
 
-const DEFAULT_NAME = 'vite-template-sky'
+const DEFAULT_NAME = 'template-sky'
 
 const logger = global.console
 

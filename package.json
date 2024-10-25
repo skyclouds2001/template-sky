@@ -1,5 +1,5 @@
 {
-  "name": "@sky-fly/vite-template",
+  "name": "@sky-fly/template",
   "version": "1.0.0",
   "description": "an opinionated vite starter template for vue or react with a cli to generate template project",
   "keywords": [
@@ -9,7 +9,7 @@
     "cli"
   ],
   "bin": {
-    "create-vite-template": "index.js"
+    "create-template": "index.js"
   },
   "files": [
     "index.js",
@@ -35,11 +35,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skyclouds2001/vite-template-sky.git"
+    "url": "git+https://github.com/skyclouds2001/template-sky.git"
   },
-  "homepage": "https://github.com/skyclouds2001/vite-template-sky#readme",
+  "homepage": "https://github.com/skyclouds2001/template-sky#readme",
   "bugs": {
-    "url": "https://github.com/skyclouds2001/vite-template-sky/issues",
+    "url": "https://github.com/skyclouds2001/template-sky/issues",
     "email": "skyclouds2001@163.com"
   },
   "license": "MIT",

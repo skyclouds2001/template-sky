@@ -1,4 +1,4 @@
-# vite-template-sky
+# template-sky
 
 An opinionated vite starter template for vue or react with a CLI to generate template project.
 
@@ -7,19 +7,19 @@ An opinionated vite starter template for vue or react with a CLI to generate tem
 Using npm to initialize a project
 
 ```sh
-npx @sky-fly/vite-template
+npx @sky-fly/template
 ```
 
 You can pass one CLI option as the project name, which will be used to decide the folder name where the generated project template will be placed.
 
 ```sh
-npx @sky-fly/vite-template project
+npx @sky-fly/template project
 ```
 
 You can also pass another CLI option as the package name, which will be used to overwrite the default in the project. If not specified, the project name will be used as the package name.
 
 ```sh
-npx @sky-fly/vite-template project project
+npx @sky-fly/template project project
 ```
 
 Available named CLI options are shown below:

@@ -17,7 +17,7 @@ permissions:
 jobs:
   labeler-content:
     name: Label for PR content
-    if: github.repository == 'skyclouds2001/vite-template-sky'
+    if: github.repository == 'skyclouds2001/template-sky'
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -26,7 +26,7 @@ jobs:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
   labeler-size:
     name: Label for PR size
-    if: github.repository == 'skyclouds2001/vite-template-sky'
+    if: github.repository == 'skyclouds2001/template-sky'
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
@@ -51,7 +51,7 @@ jobs:
           files_to_ignore: 'package-lock.json yarn.lock pnpm-lock.yaml'
   label-rebase-needed:
     name: Label for PR merge conflict
-    if: github.repository == 'skyclouds2001/vite-template-sky'
+    if: github.repository == 'skyclouds2001/template-sky'
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
