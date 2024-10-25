@@ -1,11 +1,10 @@
 {
   "name": "@sky-fly/template",
   "version": "1.0.0",
-  "description": "an opinionated vite starter template for vue or react with a cli to generate template project",
+  "description": "an opinionated starter template for vite or rollup with a cli to generate template project",
   "keywords": [
     "template",
     "project",
-    "vite",
     "cli"
   ],
   "bin": {

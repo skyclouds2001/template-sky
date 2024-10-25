@@ -1,6 +1,6 @@
 # template-sky
 
-An opinionated vite starter template for vue or react with a CLI to generate template project.
+An opinionated starter template for vite or rollup with a cli to generate template project.
 
 ## Usage
 
