@@ -1,4 +1,4 @@
-# vite-template-sky
+# template-sky
 
 ## 1.0.0
 

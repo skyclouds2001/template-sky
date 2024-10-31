@@ -14,13 +14,18 @@ export interface Template {
  */
 export const templates: Template[] = [
   {
-    name: 'vue',
+    name: 'vite-vue',
     template: 'vite-vue-template-sky',
     color: kleur.green,
   },
   {
-    name: 'react',
+    name: 'vite-react',
     template: 'vite-react-template-sky',
+    color: kleur.blue,
+  },
+  {
+    name: 'rollup',
+    template: 'rollup-template-sky',
     color: kleur.blue,
   },
 ]
@@ -31,5 +36,5 @@ export const templates: Template[] = [
  * @returns validation result
  */
 export function isValidTemplateName(name: string): boolean {
-  return Object.values(templates).some((template) => template.name === name)
+  return Object.values(templates).some((template) => template.name === name.toLowerCase())
 }
