@@ -27,10 +27,7 @@ const args = minimist<{
   },
 })
 
-/**
- *
- */
-async function cli() {
+const cli = async () => {
   try {
     const argvProjectName = typeof args._[0] === 'string' && isValidProjectName(args._[0]) ? args._.at(0) : null
     const argvPackageName = typeof args._[1] === 'string' && isValidPackageName(args._[1]) ? args._.at(1) : null
