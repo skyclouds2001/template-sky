@@ -1,21 +1,21 @@
 {
-  "name": "@sky-fly/vite-template",
+  "name": "@sky-fly/template",
   "version": "1.0.0",
-  "description": "an opinionated vite starter template for vue or react with a cli to generate template project",
+  "description": "an opinionated starter template for vite or rollup with a cli to generate template project",
   "keywords": [
     "template",
     "project",
-    "vite",
     "cli"
   ],
   "bin": {
-    "create-vite-template": "index.js"
+    "create-template": "index.js"
   },
   "files": [
     "index.js",
     "dist/",
     "vite-react-template-sky/",
-    "vite-vue-template-sky/"
+    "vite-vue-template-sky/",
+    "rollup-template-sky/"
   ],
   "publishConfig": {
     "access": "public",
@@ -35,11 +35,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/skyclouds2001/vite-template-sky.git"
+    "url": "git+https://github.com/skyclouds2001/template-sky.git"
   },
-  "homepage": "https://github.com/skyclouds2001/vite-template-sky#readme",
+  "homepage": "https://github.com/skyclouds2001/template-sky#readme",
   "bugs": {
-    "url": "https://github.com/skyclouds2001/vite-template-sky/issues",
+    "url": "https://github.com/skyclouds2001/template-sky/issues",
     "email": "skyclouds2001@163.com"
   },
   "license": "MIT",
@@ -55,7 +55,7 @@
     "type": "patreon",
     "url": "https://www.patreon.com/skyclouds2001"
   },
-  "packageManager": "pnpm@9.11.0",
+  "packageManager": "pnpm@9.12.1",
   "engines": {
     "node": ">=18.13.0",
     "npm": ">=9.6.0",
@@ -109,13 +109,13 @@
     "eslint-plugin-promise": "^7.1.0",
     "eslint-plugin-vitest": "^0.5.4",
     "globals": "15.11.0",
+    "globals": "15.11.0",
     "husky": "^9.0.7",
     "is-ci": "^3.0.1",
     "lint-staged": "^15.2.1",
     "markdownlint": "^0.36.0",
     "markdownlint-cli": "^0.42.0",
     "only-allow": "^1.2.1",
-    "pnpm": "9.12.3",
     "prettier": "^3.2.4",
     "rimraf": "^6.0.1",
     "rollup": "^4.24.2",
