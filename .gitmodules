@@ -1,8 +1,12 @@
+[submodule "vite-react-template-sky"]
+	path = vite-react-template-sky
+	url = https://github.com/skyclouds2001/vite-react-template-sky
+	branch = master
 [submodule "vite-vue-template-sky"]
 	path = vite-vue-template-sky
 	url = https://github.com/skyclouds2001/vite-vue-template-sky
 	branch = master
-[submodule "vite-react-template-sky"]
-	path = vite-react-template-sky
-	url = https://github.com/skyclouds2001/vite-react-template-sky
+[submodule "rollup-template-sky"]
+	path = rollup-template-sky
+	url = https://github.com/skyclouds2001/rollup-template-sky
 	branch = master

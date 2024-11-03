@@ -34,5 +34,5 @@ export function getPackageManager(userAgent: string): PackageManager {
  * @returns validation result
  */
 export function isValidPackageManagerName(name: string): boolean {
-  return Object.values(PackageManager).includes(name as PackageManager)
+  return Object.values(PackageManager).includes(name.toLowerCase() as PackageManager)
 }

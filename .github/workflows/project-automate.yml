@@ -14,7 +14,7 @@ on:
 jobs:
   add-to-project:
     name: Add issue or pull request to project
-    if: github.repository == 'skyclouds2001/vite-template-sky'
+    if: github.repository == 'skyclouds2001/template-sky'
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:

@@ -3,7 +3,7 @@
   "changelog": [
     "@changesets/changelog-github",
     {
-      "repo": "skyclouds2001/vite-template-sky"
+      "repo": "skyclouds2001/template-sky"
     }
   ],
   "commit": false,
