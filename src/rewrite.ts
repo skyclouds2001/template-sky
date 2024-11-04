@@ -109,22 +109,28 @@ export async function rewrite(root: string, packageName: string, git: SimpleGit)
             encoding: 'utf-8',
             flush: true,
           })
-        } catch {}
+        } catch {
+          console.log(`copy file ${file} failed`)
+        }
       }
     })
   )
 
   // override .all-contributorsrc file content
-  const acs = JSON.parse(
-    await fs.readFile(path.resolve(root, '.all-contributorsrc'), {
-      encoding: 'utf8',
+  try {
+    const acs = JSON.parse(
+      await fs.readFile(path.resolve(root, '.all-contributorsrc'), {
+        encoding: 'utf8',
+      })
+    )
+    acs.projectName = packageName
+    acs.projectOwner = userName
+    acs.contributors = []
+    await fs.writeFile(path.resolve(root, '.all-contributorsrc'), JSON.stringify(acs, null, 2), {
+      encoding: 'utf-8',
+      flush: true,
     })
-  )
-  acs.projectName = packageName
-  acs.projectOwner = userName
-  acs.contributors = []
-  await fs.writeFile(path.resolve(root, '.all-contributorsrc'), JSON.stringify(acs, null, 2), {
-    encoding: 'utf-8',
-    flush: true,
-  })
+  } catch {
+    console.log(`copy file .all-contributorsrc failed`)
+  }
 }
