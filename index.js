@@ -3,4 +3,4 @@
 /* eslint-disable */
 // @ts-nocheck
 
-import './dist/index.cjs.js'
+import './dist/index.es.js'
