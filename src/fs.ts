@@ -12,18 +12,6 @@ export const IGNORE_CHECK = ['.git', '.vscode', '.idea', '.fleet']
 export const IGNORE_COPY = ['.git', 'node_modules', 'dist', '_']
 
 /**
- * files that should override project information (exclude package.json as it requires additional tasks to execute and README.md as it is not intended to edit)
- */
-export const OVERRIDE_FILE = {
-  repository: ['.github/workflows/release.yml'],
-  userEmail: ['CODE_OF_CONDUCT.md', 'Dockerfile', 'index.html', 'SECURITY.md'],
-  description: ['index.html', 'public/site.webmanifest'],
-  keywords: ['index.html'],
-  userName: ['Dockerfile', 'index.html', 'LICENSE', '.changeset/config.json', '.github/dependabot.yml', '.github/ISSUE_TEMPLATE/bug-report.md', '.github/ISSUE_TEMPLATE/feature-request.md', '.github/ISSUE_TEMPLATE/other.md', '.github/workflows/ci.yml', '.github/workflows/labeler.yml', '.github/workflows/new-contributor.yml', '.github/workflows/project-automate.yml', '.github/workflows/release.yml', '.github/workflows/stale.yml'],
-  packageName: ['CHANGELOG.md', 'CONTRIBUTING.md', 'index.html', '.changeset/config.json', '.github/workflows/ci.yml', '.github/workflows/labeler.yml', '.github/workflows/new-contributor.yml', '.github/workflows/project-automate.yml', '.github/workflows/release.yml', '.github/workflows/stale.yml', 'public/site.webmanifest', 'tests/e2e/index.spec.ts'],
-}
-
-/**
  * check if the target dictionary empty, will ignore those files in ignore list
  * @param dir target dictionary
  * @returns check result
