@@ -8,7 +8,7 @@ import { simpleGit } from 'simple-git'
 import { clearDir, copyDir, isEmptyDir } from './fs'
 import { PackageManager, getPackageManager, isValidPackageManagerName } from './package'
 import { rewrite } from './rewrite'
-import { isValidTemplateName, templates, type Template } from './template'
+import { isValidTemplateName, Template } from './template'
 import { isValidPackageName, isValidProjectName } from './validate'
 
 const DEFAULT_NAME = 'template-sky'
@@ -65,7 +65,7 @@ const cli = async () => {
           name: 'template',
           message: 'Select a template:',
           initial: 0,
-          choices: templates.map((template) => ({
+          choices: Object.values(Template).map((template) => ({
             title: template.color(template.name),
             value: template.name,
           })),
@@ -128,7 +128,7 @@ const cli = async () => {
     }
 
     // get the template dictionary name
-    const templateDir = path.resolve(url.fileURLToPath(import.meta.url), '../..', (templates.find((f) => f.name === template) as Template).template)
+    const templateDir = path.resolve(url.fileURLToPath(import.meta.url), '../..', Object.values(Template).find((f) => f.name === template).template)
 
     // copy template project to target
     await copyDir(templateDir, root)
