@@ -5,7 +5,7 @@ import kleur from 'kleur'
 import minimist from 'minimist'
 import prompts from 'prompts'
 import { simpleGit } from 'simple-git'
-import { clearDir, copyDir, isEmptyDir } from './fs'
+import { clearDir, copyDirOrFile, isEmptyDir } from './fs'
 import { PackageManager, getPackageManager, isValidPackageManagerName } from './package'
 import { rewrite } from './rewrite'
 import { isValidTemplateName, Template } from './template'
@@ -131,7 +131,7 @@ const cli = async () => {
     const templateDir = path.resolve(url.fileURLToPath(import.meta.url), '../..', Object.values(Template).find((f) => f.name === template).template)
 
     // copy template project to target
-    await copyDir(templateDir, root)
+    await copyDirOrFile(templateDir, root)
 
     // init git instance
     const git = simpleGit({

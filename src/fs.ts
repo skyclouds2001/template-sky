@@ -41,11 +41,11 @@ export async function clearDir(dir: string): Promise<void> {
 }
 
 /**
- * copy the file from the source to the target, will ignore those files in ignore list and existed in the target
+ * copy the file or dictionary from the source to the target, will ignore those files in ignore list and existed in the target
  * @param src source path
  * @param dest target path
  */
-export async function copyDir(src: string, dest: string): Promise<void> {
+export async function copyDirOrFile(src: string, dest: string): Promise<void> {
   const file = await fs.stat(src)
 
   if (file.isDirectory()) {
@@ -58,9 +58,9 @@ export async function copyDir(src: string, dest: string): Promise<void> {
         continue
       }
 
-      await copyDir(path.resolve(src, file), path.resolve(dest, file))
+      await copyDirOrFile(path.resolve(src, file), path.resolve(dest, file))
     }
   } else {
-    await fs.copyFile(src, dest, fs.constants.COPYFILE_FICLONE_FORCE)
+    await fs.copyFile(src, dest)
   }
 }
