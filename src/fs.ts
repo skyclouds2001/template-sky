@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 
 /**
@@ -28,8 +28,8 @@ export const OVERRIDE_FILE = {
  * @param dir target dictionary
  * @returns check result
  */
-export function isEmptyDir(dir: string): boolean {
-  const files = fs.readdirSync(dir)
+export async function isEmptyDir(dir: string): Promise<boolean> {
+  const files = await fs.readdir(dir)
 
   return files.length === 0 || files.every((file) => IGNORE_CHECK.includes(file))
 }
@@ -38,15 +38,16 @@ export function isEmptyDir(dir: string): boolean {
  * clear the target dictionary to empty, will ignore those files in ignore list
  * @param dir target dictionary
  */
-export function clearDir(dir: string): void {
-  for (const file of fs.readdirSync(dir)) {
+export async function clearDir(dir: string): Promise<void> {
+  const files = await fs.readdir(dir)
+
+  for (const file of files) {
     if (IGNORE_CHECK.includes(file)) {
       continue
     }
 
-    fs.rmSync(path.resolve(dir, file), {
+    await fs.rmdir(path.resolve(dir, file), {
       recursive: true,
-      force: true,
     })
   }
 }
@@ -56,20 +57,22 @@ export function clearDir(dir: string): void {
  * @param src source path
  * @param dest target path
  */
-export function copy(src: string, dest: string): void {
-  if (fs.statSync(src).isDirectory()) {
-    fs.mkdirSync(dest, {
+export async function copyDir(src: string, dest: string): Promise<void> {
+  const file = await fs.stat(src)
+
+  if (file.isDirectory()) {
+    await fs.mkdir(dest, {
       recursive: true,
     })
 
-    for (const file of fs.readdirSync(src)) {
+    for (const file of await fs.readdir(src)) {
       if (IGNORE_COPY.includes(file)) {
         continue
       }
 
-      copy(path.resolve(src, file), path.resolve(dest, file))
+      await copyDir(path.resolve(src, file), path.resolve(dest, file))
     }
   } else {
-    fs.copyFileSync(src, dest)
+    await fs.copyFile(src, dest, fs.constants.COPYFILE_FICLONE_FORCE)
   }
 }
