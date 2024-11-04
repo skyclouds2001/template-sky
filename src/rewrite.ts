@@ -1,4 +1,4 @@
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import kleur from 'kleur'
 import type { SimpleGit } from 'simple-git'
@@ -16,7 +16,11 @@ export async function rewrite(root: string, packageName: string, git: SimpleGit)
   const projectRepo = userName && userEmail ? `https://github.com/${userName}/${packageName}` : ''
 
   // read package.json file content to get infos and do some edits
-  const pkg = JSON.parse(fs.readFileSync(path.resolve(root, 'package.json'), 'utf-8'))
+  const pkg = JSON.parse(
+    await fs.readFile(path.resolve(root, 'package.json'), {
+      encoding: 'utf8',
+    })
+  )
 
   // cache some fields of package.json
   const _packageName = pkg.name
@@ -40,59 +44,76 @@ export async function rewrite(root: string, packageName: string, git: SimpleGit)
   pkg.author.url = `https://${userName}.github.io/`
   pkg.contributors = [userName]
 
-  Object.entries(OVERRIDE_FILE).forEach(([key, files]) => {
-    let source: string, target: string
-    switch (key) {
-      case 'packageName':
-        source = _packageName
-        target = packageName
-        break
-      case 'userName':
-        source = _userName
-        target = userName
-        break
-      case 'userEmail':
-        source = _userEmail
-        target = userEmail
-        break
-      case 'repository':
-        source = _projectRepo
-        target = projectRepo
-        break
-      case 'description':
-        source = _projectDesc
-        target = ''
-        break
-      case 'keywords':
-        source = _projectKeywords
-        target = ''
-        break
-      default:
-        throw new Error(`${kleur.red('✖')} Unhandled key "${key}" in OVERRIDE_FILE.`)
-    }
-
-    // travel each file that need to update package name
-    for (const file of files) {
-      try {
-        // read file content
-        let content = fs.readFileSync(path.resolve(root, file), 'utf-8')
-
-        // overwrite the project name
-        content = content.replaceAll(source, target)
-
-        // write file content
-        fs.writeFileSync(path.resolve(root, file), content)
-      } catch {}
-    }
+  // override package.json file content
+  await fs.writeFile(path.resolve(root, 'package.json'), JSON.stringify(pkg, null, 2), {
+    encoding: 'utf-8',
+    flush: true,
   })
 
-  // override package.json file content
-  fs.writeFileSync(path.resolve(root, 'package.json'), JSON.stringify(pkg, null, 2))
+  await Promise.allSettled(
+    Object.entries(OVERRIDE_FILE).map(async ([key, files]) => {
+      let source: string, target: string
+      switch (key) {
+        case 'packageName':
+          source = _packageName
+          target = packageName
+          break
+        case 'userName':
+          source = _userName
+          target = userName
+          break
+        case 'userEmail':
+          source = _userEmail
+          target = userEmail
+          break
+        case 'repository':
+          source = _projectRepo
+          target = projectRepo
+          break
+        case 'description':
+          source = _projectDesc
+          target = ''
+          break
+        case 'keywords':
+          source = _projectKeywords
+          target = ''
+          break
+        default:
+          throw new Error(`${kleur.red('✖')} Unhandled key "${key}" in OVERRIDE_FILE.`)
+      }
+
+      // travel each file that need to update package name
+      for (const file of files) {
+        try {
+          // read file content
+          let content = await fs.readFile(path.resolve(root, file), {
+            encoding: 'utf8',
+          })
+
+          // overwrite the project name
+          content = content.replaceAll(source, target)
+
+          // write file content
+          await fs.writeFile(path.resolve(root, file), content, {
+            encoding: 'utf-8',
+            flush: true,
+          })
+        } catch {}
+      }
+    })
+  )
 
   // override .all-contributorsrc file content
-  const acs = JSON.parse(fs.readFileSync(path.resolve(root, '.all-contributorsrc'), 'utf-8'))
+  const acs = JSON.parse(
+    await fs.readFile(path.resolve(root, '.all-contributorsrc'), {
+      encoding: 'utf8',
+    })
+  )
   acs.projectName = packageName
   acs.projectOwner = userName
   acs.contributors = []
-  fs.writeFileSync(path.resolve(root, '.all-contributorsrc'), JSON.stringify(acs, null, 2))
+  await fs.writeFile(path.resolve(root, '.all-contributorsrc'), JSON.stringify(acs, null, 2), {
+    encoding: 'utf-8',
+    flush: true,
+  })
 }
