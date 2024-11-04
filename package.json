@@ -63,6 +63,7 @@
     "pnpm": ">=8.4.0"
   },
   "scripts": {
+    "init": "node ./index.js",
     "dev": "rollup --config --watch",
     "build": "rollup --config",
     "lint": "eslint --fix . && prettier --write . && markdownlint --fix **/*.md && tsc --noEmit",
