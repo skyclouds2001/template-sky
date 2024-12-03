@@ -8,7 +8,7 @@
     "cli"
   ],
   "bin": {
-    "create-template": "index.js"
+    "create": "index.js"
   },
   "files": [
     "index.js",
