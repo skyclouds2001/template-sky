@@ -128,7 +128,7 @@ const cli = async () => {
     }
 
     // get the template dictionary name
-    const templateDir = path.resolve(url.fileURLToPath(import.meta.url), '../..', Object.values(Template).find((f) => f.name === template).template)
+    const templateDir = path.resolve(url.fileURLToPath(import.meta.url), '../..', Object.values(Template).find((f) => f.name === template)!.template)
 
     // copy template project to target
     await copyDirOrFile(templateDir, root)
