@@ -13,7 +13,7 @@ npm i @sky-fly/template -g
 Then generate a project:
 
 ```sh
-create-template
+create
 ```
 
 Also directly use npx tool to generate a project without globally install it is available:
@@ -25,13 +25,13 @@ npx @sky-fly/template init
 Can pass one CLI option as the project name, which will be used to decide the folder name where the generated project template will be placed.
 
 ```sh
-create-template project-name
+create project-name
 ```
 
 Can also pass another CLI option as the package name, which will be used to overwrite the default in the project. If not specified, the project name will be used as the package name.
 
 ```sh
-create-template project-name package-name
+create project-name package-name
 ```
 
 Other available CLI options are shown below:
