@@ -1,14 +1,14 @@
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import url from 'node:url'
 import kleur from 'kleur'
 import minimist from 'minimist'
 import prompts from 'prompts'
 import { simpleGit } from 'simple-git'
-import { clearDir, copy, isEmptyDir } from './fs'
+import { clearDir, copyDirOrFile, isEmptyDir } from './fs'
 import { PackageManager, getPackageManager, isValidPackageManagerName } from './package'
 import { rewrite } from './rewrite'
-import { isValidTemplateName, templates, type Template } from './template'
+import { isValidTemplateName, Template } from './template'
 import { isValidPackageName, isValidProjectName } from './validate'
 
 const DEFAULT_NAME = 'template-sky'
@@ -65,7 +65,7 @@ const cli = async () => {
           name: 'template',
           message: 'Select a template:',
           initial: 0,
-          choices: templates.map((template) => ({
+          choices: Object.values(Template).map((template) => ({
             title: template.color(template.name),
             value: template.name,
           })),
@@ -97,39 +97,41 @@ const cli = async () => {
     // check if the target dictionary is not an empty dictionary
     // if so, prompt to let user decide whether overwrite the target dictionary
     // if user decide to overwrite, clear the target dictionary; if not, exit the process
-    if (fs.existsSync(root) && !isEmptyDir(root)) {
-      const { overwrite } = await prompts(
-        [
+    try {
+      const shouldNotOverwrite = await isEmptyDir(root)
+
+      if (!shouldNotOverwrite) {
+        const { overwrite } = await prompts(
+          [
+            {
+              type: 'confirm',
+              name: 'overwrite',
+              message: `${root === __dirname ? 'Current' : 'Target'} dictionary is not empty, remove existing files and continue?`,
+            },
+          ],
           {
-            type: 'confirm',
-            name: 'overwrite',
-            message: `${root === __dirname ? 'Current' : 'Target'} dictionary is not empty, remove existing files and continue?`,
-          },
-        ],
-        {
-          onCancel: () => {
-            throw new Error(`${kleur.red('✖')} Operation cancelled!`)
-          },
+            onCancel: () => {
+              throw new Error(`${kleur.red('✖')} Operation cancelled!`)
+            },
+          }
+        )
+
+        if (overwrite as boolean) {
+          await clearDir(root)
+        } else {
+          throw new Error(`${kleur.red('✖')} Operation cancelled!`)
         }
-      )
-
-      if (overwrite as boolean) {
-        clearDir(root)
-      } else {
-        throw new Error(`${kleur.red('✖')} Operation cancelled!`)
       }
-    }
-
-    // create target dictionary if it doesn't existed
-    if (!fs.existsSync(root)) {
-      fs.mkdirSync(root)
+    } catch {
+      // create target dictionary if it doesn't existed
+      await fs.mkdir(root, { recursive: true })
     }
 
     // get the template dictionary name
-    const templateDir = path.resolve(url.fileURLToPath(import.meta.url), '../..', (templates.find((f) => f.name === template) as Template).template)
+    const templateDir = path.resolve(url.fileURLToPath(import.meta.url), '../..', Object.values(Template).find((f) => f.name === template)!.template)
 
     // copy template project to target
-    copy(templateDir, root)
+    await copyDirOrFile(templateDir, root)
 
     // init git instance
     const git = simpleGit({

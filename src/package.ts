@@ -1,5 +1,5 @@
 /**
- * major package managers
+ * package managers enum
  */
 export class PackageManager {
   static readonly PNPM = 'pnpm'

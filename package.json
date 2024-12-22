@@ -1,6 +1,6 @@
 {
   "name": "@sky-fly/template",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "an opinionated starter template for vite or rollup with a cli to generate template project",
   "keywords": [
     "template",
@@ -8,7 +8,7 @@
     "cli"
   ],
   "bin": {
-    "create-template": "index.js"
+    "create": "index.js"
   },
   "files": [
     "index.js",
@@ -57,12 +57,13 @@
   },
   "packageManager": "pnpm@9.12.1",
   "engines": {
-    "node": ">=18.13.0",
-    "npm": ">=9.6.0",
-    "yarn": ">=1.22.0",
-    "pnpm": ">=8.4.0"
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0",
+    "yarn": ">=1.22.22",
+    "pnpm": ">=9.0.0"
   },
   "scripts": {
+    "init": "node ./index.js",
     "dev": "rollup --config --watch",
     "build": "rollup --config",
     "lint": "eslint --fix . && prettier --write . && markdownlint --fix **/*.md && tsc --noEmit",

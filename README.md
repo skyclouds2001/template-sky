@@ -4,30 +4,42 @@ An opinionated starter template for vite or rollup with a cli to generate templa
 
 ## Usage
 
-Using npm to initialize a project
+First install the package as a global dependency:
 
 ```sh
-npx @sky-fly/template
+npm i @sky-fly/template -g
 ```
 
-You can pass one CLI option as the project name, which will be used to decide the folder name where the generated project template will be placed.
+Then generate a project:
 
 ```sh
-npx @sky-fly/template project
+create
 ```
 
-You can also pass another CLI option as the package name, which will be used to overwrite the default in the project. If not specified, the project name will be used as the package name.
+Also directly use npx tool to generate a project without globally install it is available:
 
 ```sh
-npx @sky-fly/template project project
+npx @sky-fly/template init
 ```
 
-Available named CLI options are shown below:
+Can pass one CLI option as the project name, which will be used to decide the folder name where the generated project template will be placed.
 
-| Name                     | Default | Type                    | Description                                            |
-| ------------------------ | ------- | ----------------------- | ------------------------------------------------------ |
-| _--template_ _-t_        | -       | `'vue'\|'react'`        | decide the template the project is intended to use     |
-| _--package-manager_ _-p_ | -       | `'npm'\|'yarn'\|'pnpm'` | decide the package manager the project is going to use |
+```sh
+create project-name
+```
+
+Can also pass another CLI option as the package name, which will be used to overwrite the default in the project. If not specified, the project name will be used as the package name.
+
+```sh
+create project-name package-name
+```
+
+Other available CLI options are shown below:
+
+| Name                     | Default | Type                                 | Description                                            |
+| ------------------------ | ------- | ------------------------------------ | ------------------------------------------------------ |
+| _--template_ _-t_        | -       | `'vite-vue'\|'vite-react'\|'rollup'` | decide the template the project is intended to use     |
+| _--package-manager_ _-p_ | -       | `'npm'\|'yarn'\|'pnpm'`              | decide the package manager the project is going to use |
 
 ## Changelog
 

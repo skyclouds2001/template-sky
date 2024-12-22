@@ -1,8 +1,19 @@
-import fs from 'node:fs'
+import fs from 'node:fs/promises'
 import path from 'node:path'
 import kleur from 'kleur'
 import type { SimpleGit } from 'simple-git'
-import { OVERRIDE_FILE } from './fs'
+
+/**
+ * files that should override project information (exclude package.json as it requires additional tasks to execute and README.md as it is not intended to edit)
+ */
+export const OVERRIDE_FILE = {
+  repository: ['.github/workflows/release.yml'],
+  userEmail: ['CODE_OF_CONDUCT.md', 'Dockerfile', 'index.html', 'SECURITY.md'],
+  description: ['index.html', 'public/site.webmanifest'],
+  keywords: ['index.html'],
+  userName: ['Dockerfile', 'index.html', 'LICENSE', '.changeset/config.json', '.github/dependabot.yml', '.github/ISSUE_TEMPLATE/bug-report.md', '.github/ISSUE_TEMPLATE/feature-request.md', '.github/ISSUE_TEMPLATE/other.md', '.github/workflows/ci.yml', '.github/workflows/labeler.yml', '.github/workflows/new-contributor.yml', '.github/workflows/project-automate.yml', '.github/workflows/release.yml', '.github/workflows/stale.yml'],
+  packageName: ['CHANGELOG.md', 'CONTRIBUTING.md', 'index.html', '.changeset/config.json', '.github/workflows/ci.yml', '.github/workflows/labeler.yml', '.github/workflows/new-contributor.yml', '.github/workflows/project-automate.yml', '.github/workflows/release.yml', '.github/workflows/stale.yml', 'public/site.webmanifest', 'tests/e2e/index.spec.ts'],
+}
 
 /**
  * rewrite template files
@@ -16,7 +27,11 @@ export async function rewrite(root: string, packageName: string, git: SimpleGit)
   const projectRepo = userName && userEmail ? `https://github.com/${userName}/${packageName}` : ''
 
   // read package.json file content to get infos and do some edits
-  const pkg = JSON.parse(fs.readFileSync(path.resolve(root, 'package.json'), 'utf-8'))
+  const pkg = JSON.parse(
+    await fs.readFile(path.resolve(root, 'package.json'), {
+      encoding: 'utf8',
+    })
+  )
 
   // cache some fields of package.json
   const _packageName = pkg.name
@@ -40,59 +55,82 @@ export async function rewrite(root: string, packageName: string, git: SimpleGit)
   pkg.author.url = `https://${userName}.github.io/`
   pkg.contributors = [userName]
 
-  Object.entries(OVERRIDE_FILE).forEach(([key, files]) => {
-    let source: string, target: string
-    switch (key) {
-      case 'packageName':
-        source = _packageName
-        target = packageName
-        break
-      case 'userName':
-        source = _userName
-        target = userName
-        break
-      case 'userEmail':
-        source = _userEmail
-        target = userEmail
-        break
-      case 'repository':
-        source = _projectRepo
-        target = projectRepo
-        break
-      case 'description':
-        source = _projectDesc
-        target = ''
-        break
-      case 'keywords':
-        source = _projectKeywords
-        target = ''
-        break
-      default:
-        throw new Error(`${kleur.red('✖')} Unhandled key "${key}" in OVERRIDE_FILE.`)
-    }
-
-    // travel each file that need to update package name
-    for (const file of files) {
-      try {
-        // read file content
-        let content = fs.readFileSync(path.resolve(root, file), 'utf-8')
-
-        // overwrite the project name
-        content = content.replaceAll(source, target)
-
-        // write file content
-        fs.writeFileSync(path.resolve(root, file), content)
-      } catch {}
-    }
+  // override package.json file content
+  await fs.writeFile(path.resolve(root, 'package.json'), JSON.stringify(pkg, null, 2), {
+    encoding: 'utf-8',
+    flush: true,
   })
 
-  // override package.json file content
-  fs.writeFileSync(path.resolve(root, 'package.json'), JSON.stringify(pkg, null, 2))
+  await Promise.allSettled(
+    Object.entries(OVERRIDE_FILE).map(async ([key, files]) => {
+      let source: string, target: string
+      switch (key) {
+        case 'packageName':
+          source = _packageName
+          target = packageName
+          break
+        case 'userName':
+          source = _userName
+          target = userName
+          break
+        case 'userEmail':
+          source = _userEmail
+          target = userEmail
+          break
+        case 'repository':
+          source = _projectRepo
+          target = projectRepo
+          break
+        case 'description':
+          source = _projectDesc
+          target = ''
+          break
+        case 'keywords':
+          source = _projectKeywords
+          target = ''
+          break
+        default:
+          throw new Error(`${kleur.red('✖')} Unhandled key "${key}" in OVERRIDE_FILE.`)
+      }
+
+      // travel each file that need to update package name
+      for (const file of files) {
+        try {
+          // read file content
+          let content = await fs.readFile(path.resolve(root, file), {
+            encoding: 'utf8',
+          })
+
+          // overwrite the project name
+          content = content.replaceAll(source, target)
+
+          // write file content
+          await fs.writeFile(path.resolve(root, file), content, {
+            encoding: 'utf-8',
+            flush: true,
+          })
+        } catch {
+          console.log(`copy file ${file} failed`)
+        }
+      }
+    })
+  )
 
   // override .all-contributorsrc file content
-  const acs = JSON.parse(fs.readFileSync(path.resolve(root, '.all-contributorsrc'), 'utf-8'))
-  acs.projectName = packageName
-  acs.projectOwner = userName
-  acs.contributors = []
-  fs.writeFileSync(path.resolve(root, '.all-contributorsrc'), JSON.stringify(acs, null, 2))
+  try {
+    const acs = JSON.parse(
+      await fs.readFile(path.resolve(root, '.all-contributorsrc'), {
+        encoding: 'utf8',
+      })
+    )
+    acs.projectName = packageName
+    acs.projectOwner = userName
+    acs.contributors = []
+    await fs.writeFile(path.resolve(root, '.all-contributorsrc'), JSON.stringify(acs, null, 2), {
+      encoding: 'utf-8',
+      flush: true,
+    })
+  } catch {
+    console.log(`copy file .all-contributorsrc failed`)
+  }
 }

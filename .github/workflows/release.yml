@@ -20,3 +20,27 @@ jobs:
         with:
           body: |
             Please refer to [CHANGELOG.md](https://github.com/skyclouds2001/template-sky/blob/master/CHANGELOG.md) for details.
+  npm-release:
+    name: Publish npm release
+    if: github.repository == 'skyclouds2001/template-sky'
+    timeout-minutes: 60
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4.0.0
+      - name: Install Node.js
+        uses: actions/setup-node@v4.1.0
+        with:
+          registry-url: https://registry.npmjs.org/
+          node-version-file: .nvmrc
+          cache: pnpm
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Build package
+        run: pnpm build
+      - name: Publish package to npm
+        run: pnpm publish --no-git-checks
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

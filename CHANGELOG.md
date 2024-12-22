@@ -1,5 +1,37 @@
 # template-sky
 
+## 1.7.0
+
+### Minor Changes
+
+- [`71be2ae`](https://github.com/skyclouds2001/template-sky/commit/71be2aef69d2584beb31d8c2ec4d1220c40bf103) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - fix: update bin cmd
+
+- [`f86963b`](https://github.com/skyclouds2001/template-sky/commit/f86963ba6e34cd754ef458b24c1f9ae72192bc61) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - fix: change to use module generate result for cli generate
+
+- [`ff37dd9`](https://github.com/skyclouds2001/template-sky/commit/ff37dd9267a4b68fcdd4f11b2ca265f6ffbebf42) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - feat: update template to latest version
+
+### Patch Changes
+
+- [`8fc5a5d`](https://github.com/skyclouds2001/template-sky/commit/8fc5a5d58017b42a479e4bf4c67164258f02dd8c) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - build: allow lint-staged pass empty commit
+
+- [`f0160cc`](https://github.com/skyclouds2001/template-sky/commit/f0160cc6251a07d489799ee3cb2cf408c446eb8a) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - perf: migrate from using fs to fs/promises
+
+- [`e184867`](https://github.com/skyclouds2001/template-sky/commit/e1848671f985a94e632273d38433f670ca1839a6) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - fix: better function name & file method call exception
+
+- [`f19bd5e`](https://github.com/skyclouds2001/template-sky/commit/f19bd5ee34f20051d97e190d4ee6778ad63f4df6) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - docs: update for cli usage
+
+- [`c73cf3d`](https://github.com/skyclouds2001/template-sky/commit/c73cf3db895283473e049a51dda1460ee03e6505) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - build: remove useless jsconfig.json file
+
+- [`633f896`](https://github.com/skyclouds2001/template-sky/commit/633f896dbdc24e280605d0049bf958eb2a72af79) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - ci: run build before publish
+
+- [`a9fcb44`](https://github.com/skyclouds2001/template-sky/commit/a9fcb4424c3ad3a8cf28922171487d6aafeccc9a) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - refactor: move rewrite file list
+
+- [`3543a0f`](https://github.com/skyclouds2001/template-sky/commit/3543a0f00a16beb52eefe2e33dad92e305a9ce58) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - build: update engine limit
+
+- [`d7a5e65`](https://github.com/skyclouds2001/template-sky/commit/d7a5e655f643599799b0453f236e242e6bcf298e) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - feat: log when rewrite file failed
+
+- [`f3f48f7`](https://github.com/skyclouds2001/template-sky/commit/f3f48f751f0af7b9eb925c5c50005985952569a9) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - refactor: use class with static fields of template enum
+
 ## 1.6.0
 
 ### Major Changes
