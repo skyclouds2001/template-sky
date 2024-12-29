@@ -2,6 +2,12 @@
   "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
   "last-release-sha": "0b09f18458634ef89efc52a064f33e4bf8af011a",
   "release-type": "node",
+  "changelog-sections": [
+    { "type": "feat", "section": "Features", "hidden": false },
+    { "type": "fix", "section": "Bug Fixes", "hidden": false },
+    { "type": "docs", "section": "Documentations", "hidden": false },
+    { "type": "chore", "section": "Miscellaneous", "hidden": false }
+  ],
   "include-component-in-tag": false,
   "packages": {
     ".": {}
