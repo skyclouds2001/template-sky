@@ -16,7 +16,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.2.2
-      - uses: softprops/action-gh-release@v2.2.0
+      - uses: softprops/action-gh-release@v2.2.1
         with:
           body: |
             Please refer to [CHANGELOG.md](https://github.com/skyclouds2001/template-sky/blob/master/CHANGELOG.md) for details.
@@ -31,7 +31,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4.0.0
       - name: Install Node.js
-        uses: actions/setup-node@v4.1.0
+        uses: actions/setup-node@v4.2.0
         with:
           registry-url: https://registry.npmjs.org/
           node-version-file: .nvmrc
