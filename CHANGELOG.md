@@ -1,5 +1,19 @@
 # template-sky
 
+## 1.8.0
+
+### Minor Changes
+
+- [#557](https://github.com/skyclouds2001/template-sky/pull/557) [`8ef3db8`](https://github.com/skyclouds2001/template-sky/commit/8ef3db8ded22deccb415cb832c24960b00988d45) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - feat: sync with latest sub-projects
+
+### Patch Changes
+
+- [#536](https://github.com/skyclouds2001/template-sky/pull/536) [`50a05bd`](https://github.com/skyclouds2001/template-sky/commit/50a05bde14160d83454df13fd4e14b96571b438a) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - ci: remove useless permission
+
+- [#571](https://github.com/skyclouds2001/template-sky/pull/571) [`e611989`](https://github.com/skyclouds2001/template-sky/commit/e611989ff9b33ba413633aa81eccded4fa2d60ab) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - build: update dependabot config
+
+- [#536](https://github.com/skyclouds2001/template-sky/pull/536) [`83c4e90`](https://github.com/skyclouds2001/template-sky/commit/83c4e908901c97dd2e96971b74516027cafe49e4) Thanks [@skyclouds2001](https://github.com/skyclouds2001)! - build: add codeowners file
+
 ## 1.7.0
 
 ### Minor Changes
